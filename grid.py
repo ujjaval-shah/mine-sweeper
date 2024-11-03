@@ -126,3 +126,14 @@ class Grid(JPanel):
         for row in self.buttons:
             for btn in row:
                 Thread(target=btn.onGameOver).start()
+
+# class Grid:
+
+#     def __init__(self, game):
+#         pass
+
+#     def onVictory(self):
+#         pass
+
+#     def onGameOver(self):
+#         pass

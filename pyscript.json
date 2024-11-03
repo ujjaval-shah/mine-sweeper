@@ -1,8 +1,9 @@
 {
     "files": {
-        "/game.py": "",
-        "/mine.py": "",
-        "/mines.py": "",
-        "/settings.py": ""
+        "./main.py": "",
+        "./game.py": "",
+        "./grid.py": "",
+        "./cell.py": "",
+        "./settings.py": ""
     }
 }

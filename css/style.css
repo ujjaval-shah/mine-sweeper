@@ -1,0 +1,16 @@
+#root {
+    margin: 50px auto;
+    width: fit-content;
+    border: 1px, solid, black;
+    padding: 8px;
+}
+
+#topbar {}
+
+/* temporary */
+#grid {
+    margin-top: 8px;
+    height: 600px;
+    width: 600px;
+    border: 1px, solid, black;
+}
