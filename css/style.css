@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Digital7Mono';
+    src: url('../assets/Digital7Mono.ttf') format('truetype');
+}
+
 #root {
     margin: 50px auto;
     width: fit-content;
@@ -5,11 +10,24 @@
     padding: 8px;
 }
 
-#topbar {}
+#topbar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    font-family: 'Digital7Mono';
+    font-size: 80px;
+}
+
+#restart-button {
+    width: 80px;
+}
 
 /* temporary */
 #grid {
-    margin-top: 8px;
+    margin-top: 10px;
     height: 600px;
     width: 600px;
     border: 1px, solid, black;
