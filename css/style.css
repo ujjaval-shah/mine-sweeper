@@ -7,7 +7,8 @@
     margin: 50px auto;
     width: fit-content;
     border: 1px, solid, black;
-    padding: 8px;
+    padding: 10px;
+    background-color: #F0F0F0;
 }
 
 #topbar {
@@ -23,12 +24,29 @@ input {
 
 #restart-button {
     width: 80px;
+    background-color: white;
 }
 
-/* temporary */
 #grid {
-    margin-top: 10px;
-    height: 600px;
-    width: 600px;
-    border: 1px, solid, black;
+    margin-top: 12px;
+}
+
+.cell {
+    border: 0.5px, solid, black;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center; /* vertical centering */
+}
+/* white */
+/* rgb(184, 207, 229) */
+
+.celldata {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
 }
