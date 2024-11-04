@@ -1,118 +1,43 @@
 import os
-# from javax.swing import (
-#     JFrame, JPanel, JTextField,
-#     JButton, BorderFactory, ImageIcon,
-#     Timer,
-# )
-# from java.awt import (
-#     BorderLayout, Dimension, 
-#     Color, Font, Insets,
-# )
-# from java.awt.event import ActionListener
-# from java.io import File
 from grid import Grid
 from settings import *
+from pyscript.web import page, div, input_, button, img, span, wrap_dom_element
+from pyodide.ffi.wrappers import set_interval, clear_interval
 
-
-class TopbarWrapper(JPanel):
-    
-    def __init__(self):
-        super(JPanel, self).__init__()
-        self.setLayout(BorderLayout())
-        self.setBorder(BorderFactory.createEmptyBorder(*MARGIN))
-
-    def getPreferredSize(self):
-        return Dimension(LENGTH, TOPBAR_HEIGHT)
-
-
-class TextDisplayWrapper(JPanel):
-    margin = (2, 2, 2, 2)
-
-    def __init__(self, child, where):
-        super(JPanel, self).__init__()
-        self.setLayout(BorderLayout())
-        self.setBorder(BorderFactory.createEmptyBorder(*TextDisplayWrapper.margin))
-        self.add(child, where)
-
-
-class TimerListener(ActionListener):
-    
-    def __init__(self, game):
-        super(ActionListener, self).__init__()
-        self.game = game
-    
-    def actionPerformed(self, e):
-        self.game.incrementTimeField()
-
-
-class restartBtnListener(ActionListener):
-    
-    def __init__(self, game):
-        super(ActionListener, self).__init__()
-        self.game = game
-
-    def actionPerformed(self, e):
-        self.game.restart()
 
 
 class Game:
-    INITIAL_IMAGE = os.path.join(os.getcwd(), 'assets', 'slightly-smiling-face.png')
-    VICTORY_IMAGE = os.path.join(os.getcwd(), 'assets', 'smiling-face-with-sunglasses.png')
-    GAME_OVER_IMAGE = os.path.join(os.getcwd(), 'assets', 'face-with-head-bandage.png')
-    TEXTFIELD_FONT_FILE = File(os.path.join(os.getcwd(), 'assets', 'Digital7Mono.ttf'))
-    TEXTFIELD_FONT = Font.createFont(Font.TRUETYPE_FONT, TEXTFIELD_FONT_FILE).deriveFont(80.0)
+    INITIAL_IMAGE = os.path.join('.', 'assets', 'slightly-smiling-face.png')
+    VICTORY_IMAGE = os.path.join('.', 'assets', 'smiling-face-with-sunglasses.png')
+    GAME_OVER_IMAGE = os.path.join('.', 'assets', 'face-with-head-bandage.png')
 
     def __init__(self):
-        self.state = YET_TO_START
+        self.state = None
         self.time_taken = 0
+        self.timer = None
 
-        self.frame = JFrame("Minesweeper")
-        self.frame.setResizable(False)
-        self.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
-        self.frame.setLayout(BorderLayout())
+        self.root_node = page["#root"][0]
 
-
-        topbar = TopbarWrapper()
+        self.mines_field = input_(id="mines-field", type="text", size="3", value="000")
+        self.time_field = input_(id="time-field", type="text", size="3", value="000")
+        self.restart_btn_img = img()
+        self.restart_button = button(
+            self.restart_btn_img,
+            id="restart-button",
+            onclick=lambda e: self.restart()
+        )
+        self.top_bar = div(
+            id="topbar",
+            children=[self.time_field, self.restart_button, self.mines_field]
+        )
         
-        # Mines count field
-        self.mines_field = JTextField("000")
-        self.mines_field.setEditable(False)
-        self.mines_field.setBackground(Color.WHITE)
-        self.mines_field.setFont(Game.TEXTFIELD_FONT)
-        topbar.add(TextDisplayWrapper(self.mines_field, BorderLayout.WEST), BorderLayout.WEST)
+        self.root_node.append(self.top_bar)
 
-        # Smiley Button
-        self.restartBtn = JButton()
-        
-        restart_wrap = JPanel()
-        self.restartBtn.setMargin(Insets(0,0,0,0))
-        
-        self.restartBtn.setIcon(ImageIcon(Game.INITIAL_IMAGE))
-        self.restartBtn.setFocusPainted(False)
-        self.restartBtn.setPreferredSize(Dimension(*RESTART_BTN_DIMENSIONS))
-        self.restartBtn.setBackground(Color.WHITE)
-        self.restartBtn.addActionListener(restartBtnListener(self))
-        restart_wrap.add(self.restartBtn)
+        self.grid_node = div(id="grid")
+        self.root_node.append(self.grid_node)
 
-        topbar.add(restart_wrap, BorderLayout.CENTER)
+        self.setState(YET_TO_START)
 
-        # timer display field
-        self.time_field = JTextField("000")
-        self.time_field.setEditable(False)
-        self.time_field.setBackground(Color.WHITE)
-        self.time_field.setFont(Game.TEXTFIELD_FONT)
-        topbar.add(TextDisplayWrapper(self.time_field, BorderLayout.EAST), BorderLayout.EAST)
-
-        self.frame.getContentPane().add(topbar, BorderLayout.NORTH)
-
-        # grid
-        self.grid = Grid(self)
-        self.frame.getContentPane().add(self.grid, BorderLayout.CENTER)
-
-        
-        self.frame.pack()
-        self.frame.setVisible(True)
-    
     def isGameEnded(self):
         return self.state == VICTORY or self.state == GAME_OVER
     
@@ -126,17 +51,14 @@ class Game:
     def updateGame(self):
         if self.state == YET_TO_START:
             # print "new grid"
-            self.frame.remove(self.grid)
-            self.grid = Grid(self)
-            self.frame.getContentPane().add(self.grid, BorderLayout.CENTER)
-            self.frame.revalidate()
-            self.frame.pack()
+            self.grid_node.innerHTML = ""
+            self.grid = Grid(self, self.grid_node)
             # print "timer field reset"
             self.resetTimeField()
             # print "mines field reset"
             self.updateMinesField(TOTAL_MINES)
             # print "restart button icon updated"
-            self.restartBtn.setIcon(ImageIcon(Game.INITIAL_IMAGE))
+            self.restart_btn_img.src = Game.INITIAL_IMAGE
         elif self.state == STARTED:
             # print "timer started"
             self.startTimer()
@@ -148,7 +70,7 @@ class Game:
             # print "flag remaining mines"
             self.grid.onVictory()
             # print "restart button icon updated"
-            self.restartBtn.setIcon(ImageIcon(Game.VICTORY_IMAGE))
+            self.restartBtn.src = Game.VICTORY_IMAGE
         elif self.state == GAME_OVER:
             # print "timer stopped"
             self.stopTimer()
@@ -156,21 +78,20 @@ class Game:
             # print "falsely flagged cells color"
             self.grid.onGameOver()
             # print "restart button icon updated"
-            self.restartBtn.setIcon(ImageIcon(Game.GAME_OVER_IMAGE))
+            self.restartBtn.src = Game.GAME_OVER_IMAGE
     
     def restart(self):
         self.setState(YET_TO_START)
     
     def startTimer(self):
-        self.timer = Timer(ONE_SECOND, TimerListener(self))
-        self.timer.start()
+        self.timer = set_interval(self.increment_timer, 1000)
     
     def stopTimer(self):
-        self.timer.stop()
+        if self.timer:
+            clear_interval(self.timer)
 
     def resetTimeField(self):
-        if self.timer:
-            self.timer.stop()
+        self.stopTimer()
         self.time_taken = 0
         self.updateTimeField(self.time_taken)
     
@@ -181,9 +102,9 @@ class Game:
     def updateTimeField(self, time_seconds):
         time_seconds = min(time_seconds, TIMER_FIELD_LIMIT)
         text = str(time_seconds)
-        self.time_field.setText((3 - len(text))*'0' + text)
+        self.time_field.value = (3 - len(text))*'0' + text
 
     def updateMinesField(self, remaining_mines):
         remaining_mines = max(remaining_mines, MINES_FIELD_LIMIT)
         text = str(remaining_mines)
-        self.mines_field.setText((3 - len(text))*'0' + text)
+        self.mines_field.value = (3 - len(text))*'0' + text

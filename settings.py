@@ -1,4 +1,4 @@
-from java.awt import Color
+# from java.awt import Color
 
 
 
@@ -23,18 +23,18 @@ STARTED = 1
 VICTORY = 2
 GAME_OVER = 3
 
-CELL_TEXT_COLOR = {
-    1: Color.BLUE,
-    # Green
-    2: Color(0, 128, 0),
-    3: Color.RED,
-    # Indigo
-    4: Color(75, 0, 130),
-    # Maroon
-    5: Color(128, 0, 0),
-    # Baby Blue
-    6: Color(137, 207, 240),
-    7: Color.BLACK,
-    8: Color.GRAY
-}
+# CELL_TEXT_COLOR = {
+#     1: Color.BLUE,
+#     # Green
+#     2: Color(0, 128, 0),
+#     3: Color.RED,
+#     # Indigo
+#     4: Color(75, 0, 130),
+#     # Maroon
+#     5: Color(128, 0, 0),
+#     # Baby Blue
+#     6: Color(137, 207, 240),
+#     7: Color.BLACK,
+#     8: Color.GRAY
+# }
 
