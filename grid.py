@@ -1,11 +1,9 @@
 from collections import deque
-from threading import Thread
 import random
-# from javax.swing import JPanel, BorderFactory
-# from java.awt import GridLayout, Dimension
 from cell import GridCell
 from settings import *
 from pyscript.web import page, div, input_, button, img, span, wrap_dom_element
+from pyscript import display
 
 
 
@@ -57,10 +55,11 @@ class Grid:
                 if self.is_valid(ncell):
                     self.cells[ncell[0]][ncell[1]] += 1
         
-        # # DEBUG
-        print("\n")
-        for row in self.cells:
-            print(row)
+        # # # DEBUG
+        # # print("\n")
+        # display("New Grid:")
+        # for row in self.cells:
+        #     display(row)
 
     def bfs(self, root):
         q = deque([root])
