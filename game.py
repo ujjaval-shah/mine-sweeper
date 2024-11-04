@@ -70,7 +70,7 @@ class Game:
             # print "flag remaining mines"
             self.grid.onVictory()
             # print "restart button icon updated"
-            self.restartBtn.src = Game.VICTORY_IMAGE
+            self.restart_btn_img.src = Game.VICTORY_IMAGE
         elif self.state == GAME_OVER:
             # print "timer stopped"
             self.stopTimer()
@@ -78,13 +78,13 @@ class Game:
             # print "falsely flagged cells color"
             self.grid.onGameOver()
             # print "restart button icon updated"
-            self.restartBtn.src = Game.GAME_OVER_IMAGE
+            self.restart_btn_img.src = Game.GAME_OVER_IMAGE
     
     def restart(self):
         self.setState(YET_TO_START)
     
     def startTimer(self):
-        self.timer = set_interval(self.increment_timer, 1000)
+        self.timer = set_interval(self.incrementTimeField, 1000)
     
     def stopTimer(self):
         if self.timer:

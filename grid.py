@@ -17,31 +17,14 @@ class Grid:
         self.grid_node = grid_node
 
         self.arrangeMines()
-        # self.buttons = [[GridCell(i*GRID_SIZE+j, self.cells[i][j], self) for j in range(GRID_SIZE)] for i in range(GRID_SIZE)]
+        self.buttons = [[GridCell(i, j, self.cells[i][j], self) for j in range(GRID_SIZE)] for i in range(GRID_SIZE)]
 
         self.grid_node.append([
             div(
                 classes = "row",
-                children = [
-                    GridCell(
-                        x = i, y = j,
-                        data = self.cells[i][j],
-                        grid = self,
-                        id = f"cell_{i}_{j}",
-                        classes = "cell",
-                        style = {
-                            "background-color": "white"
-                        }
-                    ) for j in range(GRID_SIZE)
-                ]
+                children = [self.buttons[i][j].node for j in range(GRID_SIZE)]
             ) for i in range(GRID_SIZE)
         ])
-
-        # self.buttons = [[GridCell(i*GRID_SIZE+j, self.cells[i][j], self) for j in range(GRID_SIZE)] for i in range(GRID_SIZE)]
-
-        # for i in range(GRID_SIZE):
-        #     for j in range(GRID_SIZE):
-        #         self.add(self.buttons[i][j])
 
     def is_valid(self, x):
         return 0 <= x[0] < GRID_SIZE and 0 <= x[1] < GRID_SIZE
@@ -75,13 +58,11 @@ class Grid:
                     self.cells[ncell[0]][ncell[1]] += 1
         
         # # DEBUG
-        # print("\n")
-        # for row in self.cells:
-        #     print(row)
+        print("\n")
+        for row in self.cells:
+            print(row)
 
-# # # method definition updated    
-    def bfs(self, id):
-        root = (id // GRID_SIZE, id % GRID_SIZE)
+    def bfs(self, root):
         q = deque([root])
         visited = set([root])
 
@@ -105,11 +86,13 @@ class Grid:
                         if self.buttons[ncell[0]][ncell[1]].state == GridCell.FLAGGED:
                             self.decreaseFlagCount()
                         if self.cells[ncell[0]][ncell[1]] == 0:
-                            Thread(target=self.buttons[ncell[0]][ncell[1]].bfsClick).start()
+                            self.buttons[ncell[0]][ncell[1]].bfsClick()
+                            # Thread(target=self.buttons[ncell[0]][ncell[1]].bfsClick).start()
                             visited.add(ncell)
                             nq.append(ncell)
                         elif self.cells[ncell[0]][ncell[1]] < INF:
-                            Thread(target=self.buttons[ncell[0]][ncell[1]].bfsClick).start()
+                            self.buttons[ncell[0]][ncell[1]].bfsClick()
+                            # Thread(target=self.buttons[ncell[0]][ncell[1]].bfsClick).start()
                             visited.add(ncell)
                 
                 q = nq
@@ -136,12 +119,14 @@ class Grid:
     def onVictory(self):
         for row in self.buttons:
             for btn in row:
-                Thread(target=btn.onVictory).start()
+                btn.onVictory()
+                # Thread(target=btn.onVictory).start()
     
     def onGameOver(self):
         for row in self.buttons:
             for btn in row:
-                Thread(target=btn.onGameOver).start()
+                btn.onGameOver()
+                # Thread(target=btn.onGameOver).start()
 
 
 # def on_cell_click(e):
