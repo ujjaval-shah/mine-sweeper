@@ -17,10 +17,11 @@ nav ul {
 
 nav li {
     display: inline-block;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: larger;
     font-family: 'Courier New', Courier, monospace;
-    padding: 5px 8px;
+    padding: 5px 10px;
 }
 
 nav li:hover {
