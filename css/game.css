@@ -17,7 +17,7 @@
     justify-content: space-between;
 }
 
-input {
+#topbar input {
     font-family: 'Digital7Mono';
     font-size: 80px;
 }
@@ -36,8 +36,10 @@ input {
     height: 40px;
     width: 40px;
     display: flex;
-    justify-content: center; /* horizontal centering */
-    align-items: center; /* vertical centering */
+    /* horizontal centering */
+    justify-content: center;
+    /* vertical centering */
+    align-items: center;
 }
 
 .celldata {

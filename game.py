@@ -15,6 +15,9 @@ class Game:
         self.state = None
         self.time_taken = 0
         self.timer = None
+        self.game_mode = None
+        
+        self.bindGameModeInput()
 
         self.root_node = page["#root"][0]
 
@@ -52,11 +55,11 @@ class Game:
         if self.state == YET_TO_START:
             # print "new grid"
             self.grid_node.innerHTML = ""
-            self.grid = Grid(self, self.grid_node)
+            self.grid = Grid(self, self.grid_node, self.game_mode)
             # print "timer field reset"
             self.resetTimeField()
             # print "mines field reset"
-            self.updateMinesField(TOTAL_MINES)
+            self.updateMinesField(TOTAL_MINES[self.game_mode])
             # print "restart button icon updated"
             self.restart_btn_img.src = Game.INITIAL_IMAGE
         elif self.state == STARTED:
@@ -82,7 +85,18 @@ class Game:
     
     def restart(self):
         self.setState(YET_TO_START)
-    
+
+    def bindGameModeInput(self):
+        for radiobtn in page["input[type=radio]"]:
+            if radiobtn.checked:
+                self.game_mode = radiobtn.value
+            radiobtn.onchange = self.onGameModeChange
+
+    def onGameModeChange(self, e):
+        self.game_mode = e.target.value
+        self.state = None
+        self.restart()
+
     def startTimer(self):
         self.timer = set_interval(self.incrementTimeField, 1000)
     

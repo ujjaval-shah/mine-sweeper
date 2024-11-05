@@ -38,7 +38,7 @@ nav li:hover {
     font-size: large;
 }
 
-#tab_content div {
+#tab_content>div {
     display: none;
 }
 
@@ -53,11 +53,11 @@ nav li:hover {
 @media (min-width: 700px) {
     #tab_content {
         width: 80%;
-    }    
+    }
 }
 
 @media (min-width: 1000px) {
     #tab_content {
         width: 60%;
-    }    
+    }
 }

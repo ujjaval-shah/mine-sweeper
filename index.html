@@ -31,12 +31,13 @@
             <li id="tab1"> About Minesweeper </li>
             <li id="tab2"> Gameplay </li>
             <li id="tab3"> Controls </li>
-            <li id="tab4"> About Project </li>
+            <li id="tab4"> Settings </li>
+            <li id="tab5"> About Project </li>
         </ul>
     </nav>
 
     <div id="tab_content">
-        <div class="content1">
+        <div id="content1">
             <p>Minesweeper is a logic puzzle video game genre generally played on personal computers. The game features
                 a grid of clickable tiles, with hidden "mines" (depicted as naval mines in the original game) scattered
                 throughout the board. The objective is to clear the board without detonating any mines, with help from
@@ -47,7 +48,7 @@
             <p>Business Insider called the game an "iconic part" of the Windows operating system.</p>
             <p>Source: Wikipedia</p>
         </div>
-        <div class="content2">
+        <div id="content2">
             <p>The goal of Minesweeper is to uncover all the squares on a grid that do not contain mines without being
                 "blown up" by clicking on a square with a mine underneath. In the game, mines (that resemble naval mines
                 in the classic theme) are scattered throughout a board, which is divided into cells. Cells have three
@@ -66,7 +67,7 @@
                 cells must be opened without opening a mine.</p>
             <p>Source: Wikipedia</p>
         </div>
-        <div class="content3">
+        <div id="content3">
             <p>On Desktop:</p>
             <ul>
                 <li>Left-click an empty square to reveal it.</li>
@@ -80,7 +81,29 @@
                     if needed.</li>
             </ul>
         </div>
-        <div class="content4">
+        <div id="content4">
+            <form>
+                <p>Select game mode:</p>
+                <fieldset>
+                    <div class="radiobtn">
+                        <input type="radio" id="BEGINNER" name="game_mode" value="BEGINNER" />
+                        <label for="BEGINNER">Beginner</label>
+                    </div>
+
+                    <div class="radiobtn">
+                        <input type="radio" id="INTERMEDIATE" name="game_mode" value="INTERMEDIATE" checked />
+                        <label for="INTERMEDIATE">Intermediate</label>
+                    </div>
+
+                    <div class="radiobtn">
+                        <input type="radio" id="EXPERT" name="game_mode" value="EXPERT" />
+                        <label for="EXPERT">Expert</label>
+                    </div>
+                </fieldset>
+            </form>
+            <br>
+        </div>
+        <div id="content5">
             <p>
                 This game is made using PyScript (Python). Apart from the initial loading screen, everything else is
                 coded in Python. You can visit the <a href="https://github.com/ujjaval-shah/mine-sweeper">GitHub

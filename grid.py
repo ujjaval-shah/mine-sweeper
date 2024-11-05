@@ -9,34 +9,36 @@ from pyscript import display
 
 class Grid:
     
-    def __init__(self, game, grid_node):
+    def __init__(self, game, grid_node, game_mode):
         self.parent_ = game
         self.total_flags = 0
         self.grid_node = grid_node
+        self.game_mode = game_mode
+        self.cheight, self.cwidth = GRID_SIZE[self.game_mode]
 
         self.arrangeMines()
-        self.buttons = [[GridCell(i, j, self.cells[i][j], self) for j in range(GRID_SIZE)] for i in range(GRID_SIZE)]
+        self.buttons = [[GridCell(i, j, self.cells[i][j], self) for j in range(self.cwidth)] for i in range(self.cheight)]
 
         self.grid_node.append([
             div(
                 classes = "row",
-                children = [self.buttons[i][j].node for j in range(GRID_SIZE)]
-            ) for i in range(GRID_SIZE)
+                children = [self.buttons[i][j].node for j in range(self.cwidth)]
+            ) for i in range(self.cheight)
         ])
 
     def is_valid(self, x):
-        return 0 <= x[0] < GRID_SIZE and 0 <= x[1] < GRID_SIZE
+        return 0 <= x[0] < self.cheight and 0 <= x[1] < self.cwidth
     
     def arrangeMines(self):
-        self.cells = [[0 for j in range(GRID_SIZE)] for i in range(GRID_SIZE)]
+        self.cells = [[0 for j in range(self.cwidth)] for i in range(self.cheight)]
 
         mines_set = set()
-        while len(mines_set) < TOTAL_MINES:
-            mine = random.randrange(GRID_SIZE*GRID_SIZE)
+        while len(mines_set) < TOTAL_MINES[self.game_mode]:
+            mine = random.randrange(self.cheight * self.cwidth)
             mines_set.add(mine)
         
         for mine in mines_set:
-            cell = (mine // GRID_SIZE, mine % GRID_SIZE)
+            cell = (mine // self.cwidth, mine % self.cwidth)
 
             neighbours = [
                 (cell[0]-1, cell[1]-1),
@@ -99,12 +101,12 @@ class Grid:
     
     def increaseFlagCount(self):
         self.total_flags += 1
-        remaining_mines = TOTAL_MINES - self.total_flags
+        remaining_mines = TOTAL_MINES[self.game_mode] - self.total_flags
         self.parent_.updateMinesField(remaining_mines)
     
     def decreaseFlagCount(self):
         self.total_flags -= 1
-        remaining_mines = TOTAL_MINES - self.total_flags
+        remaining_mines = TOTAL_MINES[self.game_mode] - self.total_flags
         self.parent_.updateMinesField(remaining_mines)
 
     def checkIfIsAVictory(self):
@@ -112,7 +114,7 @@ class Grid:
         for row in self.buttons:
             for btn in row:
                 non_revealed_cells_count += (btn.state != GridCell.REVEALED)
-        if non_revealed_cells_count == TOTAL_MINES:
+        if non_revealed_cells_count == TOTAL_MINES[self.game_mode]:
             self.parent_.setState(VICTORY)
     
     def onVictory(self):

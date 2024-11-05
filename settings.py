@@ -1,16 +1,19 @@
-# from java.awt import Color
+BEGINNER = "BEGINNER"
+INTERMEDIATE = "INTERMEDIATE"
+EXPERT = "EXPERT"
 
+GRID_SIZE = {
+    BEGINNER: [9, 9],
+    INTERMEDIATE: [16, 16],
+    EXPERT: [16, 30]
+}
+TOTAL_MINES = {
+    BEGINNER: 10,
+    INTERMEDIATE: 40,
+    EXPERT: 99
+}
 
-
-GRID_SIZE = 16
-TOTAL_MINES = 40
 INF = 1000 # Indicates a mine
-
-MARGIN = (6, 6, 6, 6)
-TOPBAR_HEIGHT = 100
-MINE_WIDTH = 45
-LENGTH = GRID_SIZE*MINE_WIDTH
-RESTART_BTN_DIMENSIONS = (78, 78)
 
 ONE_SECOND = 1000
 
@@ -34,4 +37,3 @@ CELL_TEXT_COLOR = {
     7: "black",
     8: "gray"
 }
-
