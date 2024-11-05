@@ -1,0 +1,52 @@
+h1 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5em;
+}
+
+nav {
+    padding: 1em;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+    font-size: larger;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0 8px;
+}
+
+nav li:hover {
+    cursor: pointer;
+}
+
+/* nav li.selected {
+    font-weight: bold;
+    background-color: lightgray;
+} */
+
+#tab_content {
+    width: 80%;
+    margin: auto;
+    font-family: monospace;
+    font-size: large;
+}
+
+#tab_content div {
+    display: none;
+}
+
+#tab_hide {
+    font-weight: bold;
+}
+
+#tab_hide:hover {
+    cursor: pointer;
+}

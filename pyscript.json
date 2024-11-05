@@ -1,6 +1,7 @@
 {
     "files": {
         "./main.py": "",
+        "./navtabs.py": "",
         "./game.py": "",
         "./grid.py": "",
         "./cell.py": "",

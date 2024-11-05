@@ -1,8 +1,10 @@
 from game import *
+from navtabs import NavTabs
 
 
 if __name__ == '__main__':
     g = Game()
+    n = NavTabs()
 
 
 # ### To experiment with CSS

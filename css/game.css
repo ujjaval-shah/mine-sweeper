@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Digital7Mono';
+    src: url('../assets/Digital7Mono.ttf') format('truetype');
+}
+
+#root {
+    margin: 50px auto;
+    width: fit-content;
+    border: 1px, solid, black;
+    padding: 10px;
+    background-color: #F0F0F0;
+}
+
+#topbar {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+input {
+    font-family: 'Digital7Mono';
+    font-size: 80px;
+}
+
+#restart-button {
+    width: 80px;
+    background-color: white;
+}
+
+#grid {
+    margin-top: 12px;
+}
+
+.cell {
+    border: 0.5px, solid, black;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center; /* vertical centering */
+}
+
+.celldata {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+}

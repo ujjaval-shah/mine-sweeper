@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <!-- Recommended meta tags -->
@@ -12,14 +12,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 
-    <!-- for splashscreen -->
-    <style>
-        #loading {
-            outline: none;
-            border: none;
-            background: transparent
-        }
-    </style>
     <script type="module">
         const loading = document.getElementById('loading');
         addEventListener('py:ready', () => loading.close());
@@ -31,6 +23,77 @@
     <dialog id="loading">
         <h1>Loading...</h1>
     </dialog>
+
+    <h1> Minesweeper </h1>
+
+    <nav>
+        <ul>
+            <li id="tab1"> About Minesweeper </li>
+            <li id="tab2"> Gameplay </li>
+            <li id="tab3"> Controls </li>
+            <li id="tab4"> About Project </li>
+        </ul>
+    </nav>
+
+    <div id="tab_content">
+        <div class="content1">
+            <p>Minesweeper is a logic puzzle video game genre generally played on personal computers. The game features
+                a grid of clickable tiles, with hidden "mines" (depicted as naval mines in the original game) scattered
+                throughout the board. The objective is to clear the board without detonating any mines, with help from
+                clues about the number of neighboring mines in each field.
+            </p>
+            <p>The game is frequently bundled with operating systems and desktop environments, including Minesweeper for
+                IBM's OS/2, Microsoft Windows, KDE, GNOME and Palm OS.</p>
+            <p>Business Insider called the game an "iconic part" of the Windows operating system.</p>
+            <p>Source: Wikipedia</p>
+        </div>
+        <div class="content2">
+            <p>The goal of Minesweeper is to uncover all the squares on a grid that do not contain mines without being
+                "blown up" by clicking on a square with a mine underneath. In the game, mines (that resemble naval mines
+                in the classic theme) are scattered throughout a board, which is divided into cells. Cells have three
+                states: unopened, opened and flagged.
+                An unopened cell is blank and clickable, while an opened cell is exposed. Flagged
+                cells are those marked by the player to indicate a potential mine location.</p>
+            <p>A player selects a cell to open it. If a player opens a mined cell, the game ends. Otherwise, the opened
+                cell displays either a number, indicating the number of mines diagonally and adjacent to it, or a
+                blank tile, and all adjacent non-mined cells will automatically be opened. Players can also
+                flag a cell, visualised by a flag being put on the location, to denote that they believe a mine to be in
+                that place.</p>
+            <p>The remaining number of mines is displayed in the left corner, and the game timer is displayed in the
+                right corner.</p>
+            <p>The player uses information given from the opened cells to deduce further cells that are safe to open,
+                iteratively gaining more information to solve the board. To win a game of Minesweeper, all non-mine
+                cells must be opened without opening a mine.</p>
+            <p>Source: Wikipedia</p>
+        </div>
+        <div class="content3">
+            <p>On Desktop:</p>
+            <ul>
+                <li>Left-click an empty square to reveal it.</li>
+                <li>Right-click (or Ctrl+click) an empty square to flag it. A flag can be removed with the same action
+                    if needed.</li>
+            </ul>
+            <p>On Mobile:</p>
+            <ul>
+                <li>Tap an empty square to reveal it.</li>
+                <li>Long-press an empty square to flag it. A flag can be removed with the same action
+                    if needed.</li>
+            </ul>
+        </div>
+        <div class="content4">
+            <p>
+                This game is made using PyScript (Python). Apart from the initial loading screen, everything else is
+                coded in Python. You can visit the <a href="https://github.com/ujjaval-shah/mine-sweeper">GitHub
+                    repository here</a>.
+            </p>
+            <p>
+                Jython version of the game can be found <a href="https://github.com/ujjaval-shah/minesweeper">here</a>.
+            </p>
+        </div>
+        <div id="tab_hide">
+            [ Hide ]
+        </div>
+    </div>
 
     <div id="root"></div>
 
