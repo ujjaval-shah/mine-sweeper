@@ -20,7 +20,7 @@ nav li {
     margin-right: 20px;
     font-size: larger;
     font-family: 'Courier New', Courier, monospace;
-    padding: 0 8px;
+    padding: 5px 8px;
 }
 
 nav li:hover {
@@ -33,7 +33,6 @@ nav li:hover {
 } */
 
 #tab_content {
-    width: 60%;
     margin: auto;
     font-family: monospace;
     font-size: large;
@@ -49,4 +48,16 @@ nav li:hover {
 
 #tab_hide:hover {
     cursor: pointer;
+}
+
+@media (min-width: 700px) {
+    #tab_content {
+        width: 80%;
+    }    
+}
+
+@media (min-width: 1000px) {
+    #tab_content {
+        width: 60%;
+    }    
 }
