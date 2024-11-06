@@ -51,6 +51,11 @@ nav li:hover {
     cursor: pointer;
 }
 
+#content5 img {
+    margin: 10px 0;
+    border: 1px solid black;
+}
+
 @media (min-width: 700px) {
     #tab_content {
         width: 80%;
