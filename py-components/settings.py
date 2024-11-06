@@ -32,8 +32,7 @@ CELL_TEXT_COLOR = {
     3: "red",
     4: "indigo",
     5: "maroon",
-    # Baby Blue
-    6: "rgb(137, 207, 240)",
+    6: "mediumpurple",
     7: "black",
     8: "gray"
 }
