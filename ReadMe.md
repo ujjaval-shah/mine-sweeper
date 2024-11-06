@@ -10,4 +10,5 @@ This webapp is made using PyScript (Python). Apart from the initial loading scre
 ## Game screenshots
 
 ![Screenshot of the game.](/screenshots/image2.png?raw=true)
+
 ![Screenshot of the game.](/screenshots/image1.png?raw=true)
